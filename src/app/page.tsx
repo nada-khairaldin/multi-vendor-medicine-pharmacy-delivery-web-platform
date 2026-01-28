@@ -1,7 +1,5 @@
 // app/page.tsx
 
-import MedicineIcon from "../components/ui/medicineIcon";
-
 /* const categories = [
   {
     name: "Daily Essentials",
@@ -113,10 +111,5 @@ const steps = [
 */
 
 export default function Home() {
-  return (
-    <main>
-      <p>home</p>
-      <MedicineIcon className="rounded-lg shadow-md" size={32} />
-    </main>
-  );
+  return <main></main>;
 }

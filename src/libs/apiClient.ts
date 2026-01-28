@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios, { AxiosRequestConfig } from "axios";
 import { AxiosError } from "axios";
-import type {ApiError} from "../types/apiError"
+import type { ApiError } from "../types/apiError";
 
 const api = axios.create({
   baseURL: "https://some-domain.com/api/",
@@ -11,52 +11,52 @@ const api = axios.create({
 
 api.interceptors.response.use(
   (res) => res,
-  (error : AxiosError<ApiError>) => {
+  (error: AxiosError<ApiError>) => {
+    if (!error.response) {
+      error.message = "Network error";
+      return Promise.reject({ message: error.message });
+    }
 
-   if (!error.response) {
-  error.message = "Network error";
-  return Promise.reject({ message: error.message });
-}
+    const status = error.response.status;
 
-const status = error.response.status;
+    if (status === 401) {
+      // logout + redirect
+    }
 
-if (status === 401) {
-  // logout + redirect
-}
+    if (status >= 500) {
+      error.message = "Server error";
+    }
 
-if (status >= 500) {
-  error.message = "Server error";
-}
-
-return Promise.reject({
+    return Promise.reject({
       message: error.response.data?.message || "Something went wrong",
       statusCode: status,
       errors: error.response.data?.errors,
-  });
-  }
+    });
+  },
 );
 
-
-
-export const getRequest = async <T>(url : string): Promise<T> => {
-const res = await api.get<T>(url);
-return res.data;
-}
-
-export const postRequest = async <T,B>(url : string , body : B) : Promise<T> => {
-    const res = await api.post<T> (url , body);
-    return res.data;
-}
-
-export const putRequest = async <T,B> (url : string , body : B) : Promise<T> => {
-    const res = await api.put<T>(url,body);
-    return res.data;
-}
-
-export const patchRequest = async <T, B>(
+export const getRequest = async <T>(
   url: string,
-  body: B
+  config?: {
+    params?: AxiosRequestConfig["params"];
+    signal?: AbortSignal;
+  },
 ): Promise<T> => {
+  const res = await api.get<T>(url, config);
+  return res.data;
+};
+
+export const postRequest = async <T, B>(url: string, body: B): Promise<T> => {
+  const res = await api.post<T>(url, body);
+  return res.data;
+};
+
+export const putRequest = async <T, B>(url: string, body: B): Promise<T> => {
+  const res = await api.put<T>(url, body);
+  return res.data;
+};
+
+export const patchRequest = async <T, B>(url: string, body: B): Promise<T> => {
   const res = await api.patch<T>(url, body);
   return res.data;
 };
