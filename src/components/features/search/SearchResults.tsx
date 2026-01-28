@@ -40,12 +40,12 @@ export function SearchResults({ results }: Props) {
   return (
     <>
       {results.length !== 0 ? (
-        <div className="space-y-4 p-4">
+        <div className="space-y-3 md:space-y-4 p-3 md:p-4">
           <button
-            className="flex items-center gap-2 px-3 py-2 border rounded-lg text-sm"
+            className="flex items-center gap-2 px-3 py-2 border rounded-lg text-xs md:text-sm hover:bg-gray-50 transition-colors"
             onClick={openFilters}
           >
-            Filters <FaFilter />
+            Filters <FaFilter className="w-3 h-3 md:w-3.5 md:h-3.5" />
             {appliedFilters.length > 0 && (
               <span className="bg-gray-200 px-2 py-0.5 rounded-full text-xs">
                 {appliedFilters.length}

@@ -14,13 +14,13 @@ export default function SearchBox() {
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-xl h-12">
-        <FaSearch className="text-gray-400" />
+      <div className="flex items-center gap-2 md:gap-3 bg-gray-100 px-3 md:px-4 py-2 rounded-xl h-10 md:h-12">
+        <FaSearch className="text-gray-400 w-3.5 h-3.5 md:w-4 md:h-4" />
         <input
           ref={inputRef}
           type="text"
           placeholder="Search medicine, pharmacy..."
-          className="bg-transparent outline-none w-full text-sm"
+          className="bg-transparent outline-none w-full text-xs md:text-sm"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setOpen(true)}

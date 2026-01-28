@@ -12,7 +12,7 @@ export function SearchDropdown() {
   if (!open) return null;
 
   return (
-    <div className="top-full right-0 left-0 z-50 absolute bg-white shadow-lg mt-2 border rounded-xl max-h-100 overflow-y-auto">
+    <div className="absolute md:absolute top-full left-0 right-0 z-50 bg-white shadow-lg mt-2 border md:border rounded-xl max-h-[60vh] md:max-h-100 overflow-y-auto w-full md:min-w-[500px]">
       {isLoading && <div className="p-4 text-gray-500 text-sm">Searching…</div>}
 
       {error && !isLoading && (
